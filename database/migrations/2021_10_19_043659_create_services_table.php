@@ -19,10 +19,6 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
-        Schema::table('catalogs', function (Blueprint $table) {
-            $table->foreignId('service_id')->constrained()->cascadeOnDelete();
-        });
     }
 
     /**
