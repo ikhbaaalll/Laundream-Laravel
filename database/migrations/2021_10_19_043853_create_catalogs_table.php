@@ -15,6 +15,7 @@ class CreateCatalogsTable extends Migration
     {
         Schema::create('catalogs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('icon');
             $table->string('unit');
