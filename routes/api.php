@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Admin\LaundryController;
+use App\Http\Controllers\Api\V1\Admin\{DashboardController, LaundryController};
 use App\Http\Controllers\Api\V1\Owner\{
     CatalogController,
     EmployeeController,
@@ -9,7 +9,6 @@ use App\Http\Controllers\Api\V1\Owner\{
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
     Route::apiResource('laundries',     LaundryController::class);

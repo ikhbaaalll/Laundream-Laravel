@@ -9,17 +9,19 @@ class LaundryStoreRequest extends FormRequest
 {
     public function authorize()
     {
-        return auth()->user()->tokenCan('laundry.create');
+        return true;
     }
 
     public function rules()
     {
         return [
-            'email' => ['required', 'email', Rule::unique('users')],
-            'name' => ['required'],
-            'password' => ['required'],
+            'email'                 => ['required', 'email', Rule::unique('users')],
+            'name'                  => ['required'],
+            'password'              => ['required', 'confirmed'],
+            'password_confirmation' => ['required'],
+            'no_hp'                 => ['required', 'digits_between:12,13'],
 
-            'laundry' => ['required'],
+            'laundry_name' => ['required'],
         ];
     }
 }
