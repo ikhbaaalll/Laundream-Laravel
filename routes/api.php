@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Admin\{DashboardController, LaundryController};
+use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\Owner\{
     CatalogController,
     EmployeeController,
     ParfumeController,
-    ServiceController
+    ServiceController,
+    ShippingRateController
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
-    Route::apiResource('laundries',     LaundryController::class);
+Route::post('v1/login',     [LoginController::class, 'login']);
 
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
     Route::group(['prefix' => 'owner'], function () {
         // Managing Employees...
         Route::get('laundries/{laundry}/employees',                         [EmployeeController::class, 'index']);
@@ -40,5 +41,10 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
          * Route::put('laundries/{laundry}/services/{service}/catalogs/{catalog}',     [CatalogController::class, 'update']);
          * Route::delete('laundries/{laundry}/services/{service}/catalogs/{catalog}',  [CatalogController::class, 'destroy']);
          */
+
+        // Managing Shipping Rate...
+        Route::get('laundries/{laundry}/shipping',                         [ShippingRateController::class, 'index']);
+        Route::post('laundries/{laundry}/shipping',                        [ShippingRateController::class, 'store']);
+        Route::delete('laundries/{laundry}/shipping/{shippingRate}',       [ShippingRateController::class, 'destroy']);
     });
 });
