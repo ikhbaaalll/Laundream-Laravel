@@ -51,4 +51,9 @@ class Laundry extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+    public function shippingRates(): HasMany
+    {
+        return $this->hasMany(ShippingRate::class);
+    }
 }
