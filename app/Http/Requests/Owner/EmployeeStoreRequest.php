@@ -17,7 +17,7 @@ class EmployeeStoreRequest extends FormRequest
         return [
             'email'     => ['required', Rule::unique('users')],
             'name'      => ['required'],
-            'password'  => ['required']
+            'no_hp'     => ['required']
         ];
     }
 }

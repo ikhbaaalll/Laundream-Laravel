@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Owner;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmployeeUpdateRequest extends FormRequest
 {
@@ -14,7 +15,9 @@ class EmployeeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => ['required', 'in:1,0']
+            'email'     => ['required', Rule::unique('users')->ignore($this->employee->user_id)],
+            'name'      => ['required'],
+            'no_hp'     => ['required']
         ];
     }
 }
