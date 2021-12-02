@@ -40,8 +40,9 @@ class EmployeeController extends Controller
             [
                 'name'      => $employeeStoreRequest->name,
                 'email'     => $employeeStoreRequest->email,
-                'password'  => bcrypt($employeeStoreRequest->password),
-                'role'      => User::ROLE_EMPLOYEE
+                'password'  => bcrypt($employeeStoreRequest->no_hp),
+                'role'      => User::ROLE_EMPLOYEE,
+                'no_hp'     => $employeeStoreRequest->no_hp
             ]
         );
 
@@ -60,7 +61,8 @@ class EmployeeController extends Controller
             ValidationException::withMessages(['employee' => 'Tidak dapat mengubah karyawan!'])
         );
 
-        $employee->update($employeeUpdateRequest->validated());
+        User::where('id', $employee->user_id)
+            ->update($employeeUpdateRequest->validated());
 
         $employee->load('user');
 
