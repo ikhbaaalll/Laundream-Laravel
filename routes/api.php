@@ -1,17 +1,20 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Customer\HomeController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\Owner\{
     CatalogController,
     EmployeeController,
+    LaundryController,
     ParfumeController,
-    ServiceController,
     ShippingRateController
 };
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('v1/login',     [LoginController::class, 'login']);
+Route::post('v1/register',  [RegisterController::class, 'register']);
+Route::post('v1/logout',    [LoginController::class, 'logout']);
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
     Route::group(['prefix' => 'owner'], function () {
@@ -27,24 +30,22 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
         Route::put('laundries/{laundry}/parfumes/{parfume}',                [ParfumeController::class, 'update']);
         Route::delete('laundries/{laundry}/parfumes/{parfume}',             [ParfumeController::class, 'destroy']);
 
-        // Managing Service...
-        Route::get('laundries/{laundry}/services',                          [ServiceController::class, 'index']);
-        Route::post('laundries/{laundry}/services',                         [ServiceController::class, 'store']);
-        Route::put('laundries/{laundry}/services/{service}',                [ServiceController::class, 'update']);
-        Route::delete('laundries/{laundry}/services/{service}',             [ServiceController::class, 'destroy']);
-
         // Managing Service Catalog...
-        /**
-         * TODO: Managing Service Catalog
-         * Route::get('laundries/{laundry}/services/{service}/catalogs',               [CatalogController::class, 'index']);
-         * Route::post('laundries/{laundry}/services/{service}/catalogs',              [CatalogController::class, 'store']);
-         * Route::put('laundries/{laundry}/services/{service}/catalogs/{catalog}',     [CatalogController::class, 'update']);
-         * Route::delete('laundries/{laundry}/services/{service}/catalogs/{catalog}',  [CatalogController::class, 'destroy']);
-         */
+        Route::get('laundries/{laundry}/catalogs',               [CatalogController::class, 'index']);
+        Route::post('laundries/{laundry}/catalogs',              [CatalogController::class, 'store']);
+        Route::put('laundries/{laundry}/catalogs/{catalog}',     [CatalogController::class, 'update']);
+        Route::delete('laundries/{laundry}/catalogs/{catalog}',  [CatalogController::class, 'destroy']);
 
         // Managing Shipping Rate...
         Route::get('laundries/{laundry}/shipping',                         [ShippingRateController::class, 'index']);
         Route::post('laundries/{laundry}/shipping',                        [ShippingRateController::class, 'store']);
         Route::delete('laundries/{laundry}/shipping/{shippingRate}',       [ShippingRateController::class, 'destroy']);
+
+        // Update Profile Laundry
+        Route::put('laundries/{laundry}/update',                 [LaundryController::class, 'update']);
+    });
+
+    Route::group(['prefix' => 'customer'], function () {
+        Route::get('laundries',         [HomeController::class, 'index']);
     });
 });
