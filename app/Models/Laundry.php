@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Laundry extends Model
 {
@@ -32,9 +34,9 @@ class Laundry extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function services(): HasMany
+    public function catalogs(): HasMany
     {
-        return $this->hasMany(Service::class);
+        return $this->hasMany(Catalog::class);
     }
 
     public function parfumes(): HasMany
@@ -55,5 +57,13 @@ class Laundry extends Model
     public function shippingRates(): HasMany
     {
         return $this->hasMany(ShippingRate::class);
+    }
+
+    public function scopeNearestTo(Builder $builder, $lat, $lng)
+    {
+        return $builder
+            ->select('*', DB::raw("6371 * acos(cos(radians({$lat}))
+            * cos(radians(lat)) * cos(radians(lng) - radians({$lng}))
+            + sin(radians( {$lat})) * sin(radians(lat))) AS distance"));
     }
 }
