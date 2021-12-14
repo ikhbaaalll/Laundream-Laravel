@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\Owner\{
     CatalogController,
     EmployeeController,
     LaundryController,
+    OperationalHourController,
     ParfumeController,
     ShippingRateController
 };
@@ -43,6 +44,9 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
 
         // Update Profile Laundry
         Route::put('laundries/{laundry}/update',                 [LaundryController::class, 'update']);
+
+        // Managing Operational Hour
+        Route::get('laundries/{laundry}/operationalhour',        [OperationalHourController::class, 'index']);
     });
 
     Route::group(['prefix' => 'customer'], function () {
