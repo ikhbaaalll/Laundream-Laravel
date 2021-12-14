@@ -12,7 +12,7 @@ class OperationalHour extends Model
 
     protected $fillable = [
         'laundry_id',
-        'name',
+        'day',
         'open',
         'close'
     ];

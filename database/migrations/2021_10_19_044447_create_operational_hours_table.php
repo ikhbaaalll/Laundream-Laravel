@@ -16,7 +16,7 @@ class CreateOperationalHoursTable extends Migration
         Schema::create('operational_hours', function (Blueprint $table) {
             $table->id();
             $table->foreignId('laundry_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
+            $table->string('day');
             $table->time('open');
             $table->time('close');
             $table->timestamps();

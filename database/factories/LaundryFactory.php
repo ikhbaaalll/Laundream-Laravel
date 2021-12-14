@@ -24,8 +24,12 @@ class LaundryFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create(['role' => User::ROLE_OWNER]),
-            'name' => $this->faker->words(3, true),
-            'status' => Laundry::STATUS_ACTIVE
+            'name' => $this->faker->company(),
+            'status' => Laundry::STATUS_ACTIVE,
+            'banner' => asset('image/laundry.png'),
+            'phone' => $this->faker->buildingNumber(),
+            'lat' => '-5.' . rand(335774, 443614),
+            'lng' => '105.' . rand(208225, 322747)
         ];
     }
 }

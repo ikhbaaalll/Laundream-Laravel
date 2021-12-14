@@ -26,6 +26,7 @@ class EmployeeFactory extends Factory
         return [
             'user_id'   => User::factory()->create(['role' => User::ROLE_EMPLOYEE]),
             'laundry_id' => Laundry::factory(),
+            'no_hp' => $this->faker->buildingNumber(),
             'status'    => Employee::STATUS_ACTIVE
         ];
     }
