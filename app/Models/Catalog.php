@@ -13,7 +13,7 @@ class Catalog extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'service_id',
+        'laundry_id',
         'name',
         'icon',
         'unit',
@@ -22,8 +22,8 @@ class Catalog extends Model
         'estimation_type'
     ];
 
-    public function service(): BelongsTo
+    public function laundry(): BelongsTo
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Laundry::class);
     }
 }
