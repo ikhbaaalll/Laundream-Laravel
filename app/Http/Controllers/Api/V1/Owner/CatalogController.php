@@ -16,7 +16,7 @@ class CatalogController extends Controller
         throw_if(
             !auth()->user()->tokenCan('catalog.show')
                 || auth()->id() != $laundry->user_id,
-            ValidationException::withMessages(['catalog' => 'Tidak dapat melihat varian!'])
+            ValidationException::withMessages(['catalog' => 'Tidak dapat melihat layanan!'])
         );
 
         $catalogs = Catalog::query()
@@ -30,7 +30,7 @@ class CatalogController extends Controller
     {
         throw_if(
             auth()->id() != $laundry->user_id,
-            ValidationException::withMessages(['catalog' => 'Tidak dapat membuat varian!'])
+            ValidationException::withMessages(['catalog' => 'Tidak dapat membuat layanan!'])
         );
 
         $catalog = $laundry->catalogs()
@@ -43,7 +43,7 @@ class CatalogController extends Controller
     {
         throw_if(
             auth()->id() != $laundry->user_id,
-            ValidationException::withMessages(['catalog' => 'Tidak dapat mengubah varian!'])
+            ValidationException::withMessages(['catalog' => 'Tidak dapat mengubah layanan!'])
         );
 
         $catalog = $catalog->update($catalogStoreRequest->validated());
@@ -56,8 +56,8 @@ class CatalogController extends Controller
         throw_if(
             !auth()->user()->tokenCan('catalog.destroy')
                 || auth()->id() != $laundry->user_id
-                || $laundry->id == $catalog->laundry_id,
-            ValidationException::withMessages(['catalog' => 'Tidak dapat menghapus varian!'])
+                || $laundry->id != $catalog->laundry_id,
+            ValidationException::withMessages(['catalog' => 'Tidak dapat menghapus layanan!'])
         );
 
         $catalog->delete();

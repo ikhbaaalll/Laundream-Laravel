@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Catalog;
+use App\Models\Employee;
 use App\Models\Laundry;
+use App\Models\Parfume;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -35,6 +38,10 @@ class UserSeeder extends Seeder
             ]
         );
 
-        Laundry::factory()->for($owner)->create();
+        $laundry = Laundry::factory()->for($owner)->create();
+
+        Catalog::factory()->for($laundry)->count(5)->create();
+        Parfume::factory()->for($laundry)->count(2)->create();
+        Employee::factory()->for($laundry)->count(4)->create();
     }
 }

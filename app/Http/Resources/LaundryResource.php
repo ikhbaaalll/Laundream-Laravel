@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Laundry;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LaundryResource extends JsonResource
@@ -18,6 +17,10 @@ class LaundryResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => UserResource::make($this->whenLoaded('user')),
+            'catalogs' => CatalogResource::collection($this->whenLoaded('catalogs')),
+            'parfumes' => ParfumeResource::collection($this->whenLoaded('parfumes')),
+            'shippingRates' => ShippingRateResource::collection($this->whenLoaded('shippingRates')),
+            'operationalHour' => OperationalHourResource::collection($this->whenLoaded('operationalHour')),
             'name'  => $this->name,
             'banner' => $this->banner,
             'address' => $this->address,
@@ -26,7 +29,8 @@ class LaundryResource extends JsonResource
             'phone' => $this->phone,
             'lat' => $this->lat,
             'lng' => $this->lng,
-            'status' => $this->status
+            'status' => $this->status,
+            'distance' => $this->when($this->distance != null, number_format($this->distance, 2))
         ];
     }
 }

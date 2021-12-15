@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Customer\HomeController;
+use App\Http\Controllers\Api\V1\Customer\LaundryController as CustomerLaundryController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\Owner\{
     CatalogController,
     EmployeeController,
+    HomeController as OwnerHomeController,
     LaundryController,
     OperationalHourController,
     ParfumeController,
@@ -47,9 +49,13 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
 
         // Managing Operational Hour
         Route::get('laundries/{laundry}/operationalhour',        [OperationalHourController::class, 'index']);
+
+        // Home Owner and Employee
+        Route::get('laundries/{laundry}/home',      OwnerHomeController::class);
     });
 
     Route::group(['prefix' => 'customer'], function () {
         Route::get('laundries',         [HomeController::class, 'index']);
+        Route::post('laundries/{laundry}/store',    [CustomerLaundryController::class, 'store']);
     });
 });

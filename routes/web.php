@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
 
+Route::get('test', function () {
+    $now = now()->addDays(6)->locale('id')->dayName;
+    dd($now);
+});
+
 Route::get('login',     [LoginController::class, 'showLoginForm']);
 Route::post('login',    [LoginController::class, 'login'])->name('login');
 

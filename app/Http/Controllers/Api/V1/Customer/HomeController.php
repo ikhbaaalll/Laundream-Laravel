@@ -15,7 +15,8 @@ class HomeController extends Controller
             ->with(['catalogs', 'parfumes', 'operationalHour', 'shippingRates'])
             ->where('status', Laundry::STATUS_ACTIVE)
             ->nearestTo(request('lat'), request('lng'))
-            ->take(5);
+            ->take(5)
+            ->get();
 
         return LaundryResource::collection($laundries);
     }

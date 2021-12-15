@@ -22,8 +22,9 @@ class ParfumeFactory extends Factory
      */
     public function definition()
     {
+        $parfume = ['Rinso', 'Molto', 'Daia', 'Attack'];
         return [
-            'name' => $this->faker->words(2, true),
+            'name' => $parfume[array_rand($parfume, 1)],
             'laundry_id' => Laundry::factory()
         ];
     }

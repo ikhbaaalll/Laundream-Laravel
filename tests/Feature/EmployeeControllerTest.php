@@ -68,7 +68,8 @@ class EmployeeControllerTest extends TestCase
             [
                 'email' => 'e@email.com',
                 'password' => '123',
-                'name' => 'Employee'
+                'name' => 'Employee',
+                'no_hp' => '0821242'
             ]
         );
 
@@ -88,7 +89,8 @@ class EmployeeControllerTest extends TestCase
             [
                 'email' => 'e@email.com',
                 'password' => '123',
-                'name' => 'Employee'
+                'name' => 'Employee',
+                'no_hp' => '0821242'
             ]
         );
 
@@ -107,7 +109,8 @@ class EmployeeControllerTest extends TestCase
             [
                 'email' => 'e@email.com',
                 'password' => '123',
-                'name' => 'Employee'
+                'name' => 'Employee',
+                'no_hp' => '0821242'
             ]
         );
 

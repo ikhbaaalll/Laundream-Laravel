@@ -21,8 +21,18 @@ class CatalogFactory extends Factory
      */
     public function definition()
     {
+        $icon = array('bucket-outline', 'bed-empty', 'tshirt-crew', 'lingerie', 'rug', 'account-tie');
+        $unit = array('kg', 'meter', 'satuan');
+        $estimation_type = array('hari', 'jam');
+        $price = array(1000, 2000, 3000, 5000);
+
         return [
-            //
+            'name' => $this->faker->company(),
+            'icon' => $icon[array_rand($icon, 1)],
+            'unit' => $unit[array_rand($unit, 1)],
+            'price' => $price[array_rand($price, 1)],
+            'estimation_complete' => rand(1, 5),
+            'estimation_type' => $estimation_type[array_rand($estimation_type, 1)]
         ];
     }
 }

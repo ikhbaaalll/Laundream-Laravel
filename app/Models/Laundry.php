@@ -64,6 +64,7 @@ class Laundry extends Model
         return $builder
             ->select('*', DB::raw("6371 * acos(cos(radians({$lat}))
             * cos(radians(lat)) * cos(radians(lng) - radians({$lng}))
-            + sin(radians( {$lat})) * sin(radians(lat))) AS distance"));
+            + sin(radians( {$lat})) * sin(radians(lat))) AS distance"))
+            ->orderByRaw('distance');
     }
 }
