@@ -30,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
         Laundry::observe(LaundryObserver::class);
         Schema::defaultStringLength(191);
+        URL::forceScheme('https');
     }
 }
