@@ -22,7 +22,7 @@ class Transaction extends Model
     const SERVICE_PICKUP = 2;
 
     const DELIVERY_EARLY = 1;
-    const DELIVERY_FINISH = 1;
+    const DELIVERY_FINISH = 2;
 
     protected $fillable = [
         'user_id',

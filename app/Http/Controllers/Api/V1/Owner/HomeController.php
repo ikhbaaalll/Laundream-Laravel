@@ -49,12 +49,16 @@ class HomeController extends Controller
             ->where('status', Transaction::STATUS_DELIVER)
             ->get();
 
-        $revenue = Transaction::query()
+        $all = Transaction::query()
             ->whereBelongsTo($laundry)
-            ->with(['laundry', 'catalog', 'parfume'])
+            ->with(['laundry', 'catalog', 'parfume', 'user'])
             ->get();
 
-        $revenue = $revenue->sum('amout') + $revenue->sum('delivery_fee');
+        $revenue = Transaction::query()
+            ->whereBelongsTo($laundry)
+            ->get();
+
+        $revenue = $revenue->sum('amount') + $revenue->sum('delivery_fee');
 
         return response()->json([
             'confirmation' => TransactionResource::collection($confirmation),
@@ -63,6 +67,7 @@ class HomeController extends Controller
             'process' => TransactionResource::collection($process),
             'ready' => TransactionResource::collection($ready),
             'deliver' => TransactionResource::collection($deliver),
+            'all' => TransactionResource::collection($all),
             'revenue' => $revenue + 0
         ], Response::HTTP_OK);
     }

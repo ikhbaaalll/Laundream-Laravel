@@ -11,6 +11,16 @@ use Illuminate\Http\Request;
 
 class LaundryController extends Controller
 {
+    public function index()
+    {
+        $transactions = Transaction::query()
+            ->with(['laundry', 'catalog', 'parfume', 'user'])
+            ->where('user_id', auth()->id())
+            ->get();
+
+        return TransactionResource::collection($transactions);
+    }
+
     public function store(LaundryStoreRequest $laundryStoreRequest, Laundry $laundry)
     {
         $transaction = Transaction::query()

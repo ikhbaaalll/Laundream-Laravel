@@ -10,7 +10,8 @@ use App\Http\Controllers\Api\V1\Owner\{
     LaundryController,
     OperationalHourController,
     ParfumeController,
-    ShippingRateController
+    ShippingRateController,
+    TransactionController
 };
 use App\Http\Controllers\Api\V1\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -52,10 +53,14 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
 
         // Home Owner and Employee
         Route::get('laundries/{laundry}/home',      OwnerHomeController::class);
+
+        // Update Status Transaction
+        Route::post('laundries/{laundry}/transaction/{transaction}',    [TransactionController::class, 'update']);
     });
 
     Route::group(['prefix' => 'customer'], function () {
         Route::get('laundries',         [HomeController::class, 'index']);
+        Route::get('laundries/transaction',         [CustomerLaundryController::class, 'index']);
         Route::post('laundries/{laundry}/store',    [CustomerLaundryController::class, 'store']);
     });
 });
