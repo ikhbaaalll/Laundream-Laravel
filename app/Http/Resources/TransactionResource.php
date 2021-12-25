@@ -17,7 +17,7 @@ class TransactionResource extends JsonResource
             'parfume' => ParfumeResource::make($this->whenLoaded('parfume')),
             'serial' => $this->serial,
             'amount' => $this->amount,
-            'delivery_fee' => $this->delivery_fee,
+            'delivery_fee' => $this->delivery_fee ?: 0,
             'distance' => $this->distance ?: '0',
             'service_type' => $this->service_type,
             'delivery_type' => $this->delivery_type,
